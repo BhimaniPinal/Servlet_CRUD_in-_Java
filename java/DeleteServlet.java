@@ -15,7 +15,7 @@ public class DeleteServlet extends HttpServlet
         String sname=request.getParameter("username"); 
         out.print(sname);
         
-         int status=EmpDao.delete(sname);  
+         int status=EmpDao.delete(sname);  //delete  Employee all details from database
        
          if(status>0)
          {  
