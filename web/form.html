@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    
+<body  background="p8.jpg" style="background-repeat:no-repeat;background-size:100% 200%;">
+    </br></br><h1 style="text-align:center">Add New Employee</h1>  
+</br>
+<form action="SaveServlet" method="post">  
+<table align="center">  
+    <tr><td>
+        <div class="form-group">
+                <div class="col-md-3 col-md-offset-3">
+                    <label for="Name">UserName:</label>
+                </div>
+        </div>
+    </td><td>
+         <div class="form-group">
+                <div class="col-md-12">
+                     <input type="text" class="form-control" id="name" name="username"> 
+                </div>
+        </div>
+    </td></tr>  
+    
+    <tr><td>
+        <div class="form-group">
+                <div class="col-md-2 col-md-offset-3">
+                    <label for="pass">Password:</label>
+                </div>
+        </div>
+     </td><td>       
+        <div class="form-group">
+                <div class="col-md-12">
+                     <input type="password" class="form-control" id="pass" name="password"> 
+                </div>
+        </div>
+    </td></tr>  
+    <tr><td>
+        <div class="form-group">
+                <div class="col-md-2 col-md-offset-3">
+                    <label for="email2">Email:</label>
+                </div>
+        </div>
+     </td><td>       
+        <div class="form-group">
+                <div class="col-md-12">
+                     <input type="email" class="form-control" id="email2" name="email"> 
+                </div>
+        </div>
+    </td></tr>    
+    <tr><td>
+        <div class="form-group">
+                <div class="col-md-2 col-md-offset-3">
+                    <label for="con">Country</label>
+                </div>
+        </div>
+     </td><td> 
+         <div class="col-sm-8">
+            <select class="form-control" id="con" name="country" style="width:150px">  
+            <option>India</option>  
+            <option>USA</option>  
+            <option>UK</option>  
+            <option>Other</option>  
+            </select> 
+         </div>
+</td></tr>
+</table>
+    </br>
+<center> <button class="btn btn-primary" type="submit">Submit form</button></center> 
+</form>  
+  
+<br/>  
+</body>
+</html>
