@@ -6,28 +6,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.annotation.WebServlet;  
 @WebServlet("/EditServlet2")  
-public class EditServlet2 extends HttpServlet
+public class EdiServlet2 extends HttpServlet
 {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
     {
+       
        response.setContentType("text/html");  
        PrintWriter out=response.getWriter();  
           
         String sid=request.getParameter("id");  
-        int id=Integer.parseInt(sid);
+        int id=Integer.parseInt(sid);  
+        
         String name=request.getParameter("name");  
         String password=request.getParameter("password");  
         String email=request.getParameter("email");  
-        String country=request.getParameter("country"); 
-      
-        /*Emp e=EmpDao.getEmployeeById(id);  
-        e.setId(e.getId());  
-        e.setName(e.getName());  
-        e.setPassword(e.getPassword());  
-        e.setEmail(e.getEmail());  
-        e.setCountry(e.getCountry()); 
-        */
+        String country=request.getParameter("country");  
+        out.println(id);
         
         Emp e=new Emp();  
         e.setId(id);  
@@ -35,18 +30,20 @@ public class EditServlet2 extends HttpServlet
         e.setPassword(password);  
         e.setEmail(email);  
         e.setCountry(country); 
-         
-        int status=EmpDao.update(e); 
-       
+          out.println(name+password);
+          
+        int status=EmpDao.update(e);  
         if(status>0)
         {  
-           out.println("<p>Record update SuccessFully<p>");
-           response.sendRedirect("ViewServlet?username="+e.getName()+""); 
+            out.println("<p>Record update SuccessFully<p>");
+            response.sendRedirect("ViewServlet");  
         }
         else
         {  
             out.println("Sorry! unable to update record");  
         }  
-        out.close();
+          
+        out.close(); 
+    
     }
 }

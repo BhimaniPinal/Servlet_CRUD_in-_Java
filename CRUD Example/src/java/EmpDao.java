@@ -1,9 +1,9 @@
 import java.util.*;  
 import java.sql.*;  
-  
+//  import java.io.*;
 public class EmpDao {  
   
-    public static Connection getConnection()
+    public static Connection getConnection1()
     {  
         Connection con=null;  
         try
@@ -20,16 +20,16 @@ public class EmpDao {
     public static int save(Emp e){  
         int status=0;  
         try{  
-            Connection con=EmpDao.getConnection();  
+            Connection con=EmpDao.getConnection1();
+           
             PreparedStatement ps=con.prepareStatement("insert into emp(Name,Password,Email,Country) values (?,?,?,?)");  
             ps.setString(1,e.getName());  
             ps.setString(2,e.getPassword());  
             ps.setString(3,e.getEmail());  
-            ps.setString(4,e.getCountry());  
-              
+            ps.setString(4,e.getCountry()); 
             status=ps.executeUpdate();  
               
-            con.close();  
+            con.close();
         }
         catch(Exception ex)
         {
@@ -42,7 +42,7 @@ public class EmpDao {
         int status=0;  
         try
         {  
-            Connection con=EmpDao.getConnection();  
+            Connection con=EmpDao.getConnection1();  
             PreparedStatement ps=con.prepareStatement("update emp set Name=?,Password=?,Email=?,Country=? where Id=?");  
             ps.setString(1,e.getName());  
             ps.setString(2,e.getPassword());  
@@ -61,13 +61,13 @@ public class EmpDao {
           
         return status;  
     }  
-    public static int delete(String sname){  
+    public static int delete(int id){  
         int status=0;  
         try
         {  
-            Connection con=EmpDao.getConnection();  
-            PreparedStatement ps=con.prepareStatement("delete from emp where Name=?");  
-            ps.setString(1,sname);  
+            Connection con=EmpDao.getConnection1();  
+            PreparedStatement ps=con.prepareStatement("delete from emp where Id=?");  
+            ps.setInt(1,id);  
             status=ps.executeUpdate();  
               
             con.close();  
@@ -75,15 +75,16 @@ public class EmpDao {
         catch(Exception e)
         {
             e.printStackTrace();
-        }        
+        }  
+          
+        
         return status;  
     }  
-     public static Emp getEmployeeById(int id)
-     {  
+    public static Emp getEmployeeById(int id){  
         Emp e=new Emp();    
         try
         {  
-            Connection con=EmpDao.getConnection();  
+            Connection con=EmpDao.getConnection1();  
             PreparedStatement ps=con.prepareStatement("select * from emp where Id=?");  
             ps.setInt(1,id);  
             ResultSet rs=ps.executeQuery();  
@@ -101,59 +102,33 @@ public class EmpDao {
         {
             ex.printStackTrace();
         }  
-        return e;
-     
-     }
-    public static Emp getEmployeeByName(String sname){  
-        Emp e=new Emp();    
-        try
-        {  
-            Connection con=EmpDao.getConnection();  
-            PreparedStatement ps=con.prepareStatement("select * from emp where Name=?");  
-            ps.setString(1,sname);  
-            ResultSet rs=ps.executeQuery();  
-            if(rs.next())
-            {  
-                e.setId(rs.getInt(1));  
-                e.setName(rs.getString(2));  
-                e.setPassword(rs.getString(3));  
-                e.setEmail(rs.getString(4));  
-                e.setCountry(rs.getString(5));  
-            }  
-            con.close();  
-        }
-        catch(Exception ex)
-        {
-            ex.printStackTrace();
-        }  
           
         return e;  
     }  
-    public static Emp getEmployee(String s){  
-        Emp e=new Emp();
+    public static List<Emp> getAllEmployees(){  
+        List<Emp> list=new ArrayList<Emp>();  
           
         try{  
-            Connection con=EmpDao.getConnection();  
-            PreparedStatement ps=con.prepareStatement("select * from emp where Name=?");  
-            ps.setString(1, s);
+            Connection con=EmpDao.getConnection1();  
+            PreparedStatement ps=con.prepareStatement("select * from emp");  
             ResultSet rs=ps.executeQuery();  
             while(rs.next())
             {  
-               
+                Emp e=new Emp();  
                 e.setId(rs.getInt(1));  
                 e.setName(rs.getString(2));  
                 e.setPassword(rs.getString(3));  
                 e.setEmail(rs.getString(4));  
                 e.setCountry(rs.getString(5));  
-                
+                list.add(e);  
             }  
             con.close();  
         }
-        catch(Exception m)
+        catch(Exception e)
         {
-            m.printStackTrace();
+            e.printStackTrace();
         }  
           
-        return e;  
+        return list;  
     }  
 }  

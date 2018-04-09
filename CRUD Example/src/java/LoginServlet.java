@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.RequestDispatcher;  
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpSession;
 
 public class LoginServlet extends HttpServlet 
 {
@@ -16,13 +17,16 @@ public class LoginServlet extends HttpServlet
           
     String n=request.getParameter("username");  
     String p=request.getParameter("password");  
-    
-    Cookie ck=new Cookie("username",n);//creating cookie object  
-    response.addCookie(ck);//adding cookie in the response 
+    HttpSession sessin=request.getSession();
+    sessin.setAttribute("name", n);
+    //Cookie ck=new Cookie("username",n);//creating cookie object  
+    //response.addCookie(ck);//adding cookie in the response 
     
    if(LoginDao.validate(n, p))
     {  
-        RequestDispatcher rd=request.getRequestDispatcher("WelcomeServlet");  
+        HttpSession session=request.getSession();  
+        session.setAttribute("name",n);
+        RequestDispatcher rd=request.getRequestDispatcher("ViewServlet");  
         rd.forward(request,response); 
     }  
     else
